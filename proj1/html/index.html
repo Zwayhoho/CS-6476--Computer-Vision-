@@ -1,0 +1,277 @@
+<html>
+<head>
+<title>Computer Vision Project</title>
+<link href='http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+
+<link rel="stylesheet" href="highlighting/styles/default.css">
+<script src="highlighting/highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: bold;
+	font-size: 20px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 960px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+td img {
+  vertical-align: middle;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1><span style="color: #FFE638;font-weight:bold;text-transform: capitalize;">Wei Zhao</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>Project 1: Image Filtering and Hybrid Images</h2>
+
+<div style="float: right; padding: 20px">
+<img src="../results/hybrid_image_me.jpg" />
+<p style="font-size: 14px">Hybrid Image of High frequency part of Einstein <br /> and Low frequency part of Marilyn.</p>
+</div>
+
+<p> 	The image filtering methods have significant applications in image processing. In this project, different image filtering methods are implemented by using an image filter function, which returns a filtered image with given kernel matrix. Then the filter function is used to create a hybrid images contains different frequency components of different images. The hybrid images are interesting to see because high frequency tends to dominate the human perception when the viewing distance is close. But at a distance, only the low frequency part of image can be seen. With combination of high and low frequency from different images, the hybrid images leads to different view effects at different distances. <br /><br />This report contains following subjects:
+
+</p>
+
+<ol>
+<li>Image Filtering Implementation</li>
+<li>Hybrid Images</li>
+<li>Results</li>
+<li>Conclusion</li>
+</ol>
+
+
+<div style="clear:both">
+<h2>Image Filtering Implementation</h2>
+
+<p> 	Before we implemnet the image filtering, we need to understand what is an image. The digital images (gray scale) contains a matrix of intensity values. If the image were 8 bit, the intensity values may vary from 0 to 255. We can think the images as a function in space R<sup>2</sup>. As with any function, we can apply operators to an image. The image filter acts as an operator to the image. It modifies the pixels in an image based on some function of a local neighborhood of each pixel. </p>
+
+<p>In this project, we first implement an gaussian filter. The gaussian filter helps remove high frequency filter and acts as a low pass filter. It can blur the images if we apply this filter. It's easy to change the standard deviation &#963; in gaussian function to change the blur effects. With larger &#963;, the cut off frequency is higher thus the lower frequency part of image would remain. Please see the following images with increasing &#963;. <p>
+
+
+<p>In the practical implementation, the image filtering code needs to identify the dimensions of the input image, i.e. the grayscale or RGB image. After that, zero padding should be added to around the input image to make edge pixels have local neighborhood and to apply the filter. The boundary of following images appears balck because filter takes account of those padded zeros. It can be avoided by padding images it self in the boundary.<p>
+
+<h3>Orignial dog.bmp and filtered dog.bmp with &#963;=3, &#963;=7, &#963;=15</h3>
+
+<table border=0>
+<tr>
+<td>
+<img src="../results/dog.bmp" width="24%"/>
+<img src="../results/blurry_dog_cutoff=3.jpg"  width="24%"/>
+<img src="../results/blurry_dog_cutoff=7.jpg" width="24%"/>
+<img src="../results/blurry_dog_cutoff=15.jpg" width="24%"/>
+</td>
+</tr>
+</tr>
+</table>
+
+<p>Beisdes gaussian filter, an Identity filter, small blur with a box filter, large blur filter, Sobel filter and high pass filter are also implemented in this project. Please see the foollowing images. An idenity matrix just return an image itself without changing anything. The small blur filter average out around each pixel. It can reduce some noise. A large blur filter is just an gaussian filter with bigger sigma and ksize, which filter more high frequency. However, it might be slow to do the convolution calculation directly due to large matrix size. Since gaussian blurs are separable ,we can blur sequentially in each direction of image. The amount of calculation time will be reduced because less total number of calculations. Sobel filter will find gradients in x or y direction, which is very useful in edge detection. Another useful edge dection filter is laplacian filter, which measures 2nd derivative of an image. It can highlights the parts in image with rapid intensity changes.<p>
+
+<h3>Cat.bmg filtered with an Identity filter, small blur with a box filter, large blur filter, Sobel filter and high pass filter are also implemented in this project(from left to right)
+</h3>
+
+<table border=0>
+<tr>
+<td>
+<img src="../results/identity_image.jpg" width="24%"/>
+<img src="../results/blur_image.jpg"  width="24%"/>
+<img src="../results/large_blur_image.jpg" width="24%"/>
+<img src="../results/sobel_image.jpg" width="24%"/>
+</td>
+</tr>
+</tr>
+<td>
+<img src="../results/laplacian_image.jpg" width="24%"/>
+<img src="../results/high_pass_image.jpg"  width="24%"/>
+</td>
+</tr>
+</table>
+
+<br />
+<br />
+<h2>Hybrid Images</h2>
+
+
+
+<div style="clear:both" >
+<p> 	A hybrid image is a picture that combines the low-spatial frequencies of one picture with the high spatial frequencies of another picture producing an image with an interpretation that changes with viewing distance. The gaussian filter is used to find the low frequency component of image. The high frequency components are simply calculated by using orignal image minus low frequency components. To get best viewing reuslt, different cut-off frequency are necessary for different images. It's necessary to balance between bluring and sharping of two images. Usually, we will have a good reuslt if we can find a cutoff frequency which keeps blured dominated features from blured image(low frequency) and we combine it with the noticeable mask from sharping image (high frequency). <br />Please see the following example:</p>
+</div>
+<h3>Hybrid dog and cat images with cut-off frequency = 7 pixels
+</h3>
+<table border=0>
+<tr>
+<td>
+<img src="../results/low_frequencies_dog.jpg" width="24%"/>
+<img src="../results/high_frequencies_cat.jpg"  width="24%"/>
+<img src="../results/hybrid_image_dogcat.jpg" width="24%"/>
+<img src="../results/hybrid_image_scales_dogcat.jpg" width="24%"/>
+</td>
+</tr>
+
+</table>
+<br />
+<br />
+<h2>Results</h2>
+
+<h3>Some hybrid images with low and high frequencis filterd images
+</h3>
+<table border=0>
+<tr>
+<td>
+<img src="../results/low_frequencies_bicycle.jpg" width="24%"/>
+<img src="../results/high_frequencies_motorcycle.jpg"  width="24%"/>
+<img src="../results/hybrid_image_bm.jpg" width="24%"/>
+<img src="../results/hybrid_image_scales_bm.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="../results/low_frequencies_bird.jpg" width="24%"/>
+<img src="../results/high_frequencies_plane.jpg"  width="24%"/>
+<img src="../results/hybrid_image_bp.jpg" width="24%"/>
+<img src="../results/hybrid_image_scales_bp.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="../results/low_frequencies_fish.jpg" width="24%"/>
+<img src="../results/high_frequencies_sub.jpg"  width="24%"/>
+<img src="../results/hybrid_image_fs.jpg" width="24%"/>
+<img src="../results/hybrid_image_scales_fs.jpg" width="24%"/>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="../results/low_frequencies_marilyn.jpg" width="24%"/>
+<img src="../results/high_frequencies_einstein.jpg"  width="24%"/>
+<img src="../results/hybrid_image_me.jpg" width="24%"/>
+<img src="../results/hybrid_image_scales_me.jpg" width="24%"/>
+</td>
+</tr>
+</table>
+
+
+<p> 	From these hybrid image pairs, we found that a good hybrid images needs good overlap from two images. When we perceive one image, the other one should be perceived as noise. The low spatial frequencies images doesn't have clear boundary at close distance. The high frequenies images with clear shape and boundary will dominate our perception. So how do we tweak the cut off frequencies to get good hybrid images? The answer is when we set the cut off frequencies for low and high frequenies images, there shoud be a gap between cut off frequencies. It help viewer group an interpretation of the image. </p>
+
+<h2>Conclusion</h2>
+
+<p> 	The image filtering methods in this projects are simple but very powerful tool. We implemented different kernel to the images and created some hybrid images. Interesting project! </p>
+
+</body>
+</html>
